@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "redhat_opentelemetry_contrib"
+version = "0.1.0"
+description = "OpenTelementry Python extensions written at Red Hat"
+authors = ["Barak Korren <bkorren@redhat.com>"]
+license = "Apache-2.0"
+
+[tool.poetry.dependencies]
+python = "^3.9.0"
+
+[tool.poetry.dev-dependencies]
+pylint = "^2.15.6"
+black = "^22.10.0"
+pypi = "^2.1"
+isort = "^5.10.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
