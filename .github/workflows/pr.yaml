@@ -1,0 +1,13 @@
+name: PyTest
+on: pull_request
+jobs:
+  pytest:
+    name: Run the application's tests with PyTest
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-verson: "3.9"
