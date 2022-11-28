@@ -1,6 +1,39 @@
 name: PyTest
 on: pull_request
 jobs:
+  pre-commit:
+    name: Run pre-commit tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+      - name: Install poetry and pre-commit
+        run: pip install --user poetry pre-commit
+      - name: cache poetry virtualenv
+        uses: actions/cache@v1
+        id: cache
+        with:
+          path: ~/.virtualenvs
+          key: poetry-${{ hashfiles('**/poetry.lock') }}
+          restore-keys: |
+            poetry-${{ hashfiles('**/poetry.lock') }}
+      - name: set poetry config
+        run: |
+          poetry config virtualenvs.in-project false
+          poetry config virtualenvs.path ~/.virtualenvs
+      - name: Setup environment
+        run: poetry install
+        if: steps.cache.outputs.cache-hit != 'true'
+      - name: Run black via poetry for testing
+        run: poetry run black tests/test_dummy.py
+      - name: Run pre-commit tests
+        run: pre-commit run --from-ref HEAD^ --to-ref HEAD
   pytest:
     name: Run the application's tests with PyTest
     runs-on: ubuntu-latest
@@ -10,4 +43,23 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-verson: "3.9"
+          python-version: "3.9"
+      - name: Install poetry
+        run: pip install --user poetry
+      - name: cache poetry virtualenv
+        uses: actions/cache@v1
+        id: cache
+        with:
+          path: ~/.virtualenvs
+          key: poetry-${{ hashfiles('**/poetry.lock') }}
+          restore-keys: |
+            poetry-${{ hashfiles('**/poetry.lock') }}
+      - name: set poetry config
+        run: |
+          poetry config virtualenvs.in-project false
+          poetry config virtualenvs.path ~/.virtualenvs
+      - name: Setup environment
+        run: poetry install
+        if: steps.cache.outputs.cache-hit != 'true'
+      - name: Run PyTest
+        run: poetry run pytest -v

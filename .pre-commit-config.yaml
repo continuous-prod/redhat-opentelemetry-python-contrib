@@ -32,28 +32,24 @@ repos:
       - id: isort
         name: isort
         entry: "poetry run isort --profile black"
-        language: python
+        language: system
         types: [python]
-        additional_dependencies: [poetry]
         require_serial: true
       - id: black
         name: black
         entry: "poetry run black"
-        language: python
+        language: system
         types: [python]
-        additional_dependencies: [poetry]
         require_serial: true
       - id: pylint
         name: pylint
         entry: "poetry run pylint"
-        language: python
+        language: system
         types: [python]
-        additional_dependencies: [poetry]
         require_serial: true
       - id: mypy
         name: mypy
         entry: "poetry run mypy"
-        language: python
+        language: system
         types: [python]
-        additional_dependencies: [poetry]
         require_serial: true
