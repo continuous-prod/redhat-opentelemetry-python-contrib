@@ -7,12 +7,16 @@ license = "Apache-2.0"
 
 [tool.poetry.dependencies]
 python = "^3.9.0"
+opentelemetry-api = "^1.14.0"
+opentelemetry-sdk = "^1.14.0"
+opentelemetry-distro = "^0.35b0"
 
 [tool.poetry.dev-dependencies]
 pylint = "^2.15.6"
 black = "^22.10.0"
 pypi = "^2.1"
 isort = "^5.10.1"
+mypy = "^0.991"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

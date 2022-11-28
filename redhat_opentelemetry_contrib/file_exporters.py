@@ -35,6 +35,7 @@ __version__ = "0.0.12"
 
 
 class EnvVars:
+    # pylint: disable=too-few-public-methods
     """This class is meant to be registered as an
     `opentelemetry_environment_variables` entry point to expose our env vars to
     the OTel tooling
@@ -43,6 +44,11 @@ class EnvVars:
     OTEL_FILE_SPAN_EXPORTER_NAME = "OTEL_FILE_SPAN_EXPORTER_NAME"
     OTEL_FILE_METRIC_EXPORTER_NAME = "OTEL_FILE_METRIC_EXPORTER_NAME"
     OTEL_FILE_LOG_EXPORTER_NAME = "OTEL_FILE_LOG_EXPORTER_NAME"
+
+
+# All classes below need to open files and close them much later outside of
+# neat block boundaries
+# pylint: disable=consider-using-with
 
 
 class FileSpanExporter(ConsoleSpanExporter):
@@ -60,7 +66,9 @@ class FileSpanExporter(ConsoleSpanExporter):
             EnvVars.OTEL_FILE_SPAN_EXPORTER_NAME, "otel_traces.log"
         ),
     ) -> None:
-        super().__init__(out=open(file_path, "a"), service_name=service_name)
+        super().__init__(
+            out=open(file_path, "a", encoding="utf-8"), service_name=service_name
+        )
         self.file_path = file_path
 
     def __del__(self):
@@ -81,7 +89,7 @@ class FileMetricExporter(ConsoleMetricExporter):
             EnvVars.OTEL_FILE_METRIC_EXPORTER_NAME, "otel_metrics.log"
         ),
     ) -> None:
-        super().__init__(out=open(file_path, "a"))
+        super().__init__(out=open(file_path, "a", encoding="utl-8"))
         self.file_path = file_path
 
     def __del__(self):
@@ -102,7 +110,7 @@ class FileLogExporter(ConsoleLogExporter):
             EnvVars.OTEL_FILE_LOG_EXPORTER_NAME, "otel_logs.log"
         ),
     ) -> None:
-        super().__init__(out=open(file_path, "a"))
+        super().__init__(out=open(file_path, "a", encoding="utf-8"))
         self.file_path = file_path
 
     def __del__(self):

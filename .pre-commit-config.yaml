@@ -1,0 +1,58 @@
+# Copyright 2022 Red Hat, Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+default_language_version:
+  python: python3.9
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-toml
+      - id: check-added-large-files
+      - id: fix-byte-order-marker
+      - id: fix-encoding-pragma
+  - repo: local
+    hooks:
+      - id: isort
+        name: isort
+        entry: "poetry run isort --profile black"
+        language: python
+        types: [python]
+        additional_dependencies: [poetry]
+        require_serial: true
+      - id: black
+        name: black
+        entry: "poetry run black"
+        language: python
+        types: [python]
+        additional_dependencies: [poetry]
+        require_serial: true
+      - id: pylint
+        name: pylint
+        entry: "poetry run pylint"
+        language: python
+        types: [python]
+        additional_dependencies: [poetry]
+        require_serial: true
+      - id: mypy
+        name: mypy
+        entry: "poetry run mypy"
+        language: python
+        types: [python]
+        additional_dependencies: [poetry]
+        require_serial: true
