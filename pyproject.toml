@@ -10,6 +10,7 @@ python = "^3.9.0"
 opentelemetry-api = "^1.14.0"
 opentelemetry-sdk = "^1.14.0"
 opentelemetry-distro = "^0.35b0"
+setuptools = "^65.6.3"
 
 [tool.poetry.dev-dependencies]
 pylint = "^2.15.6"
@@ -18,7 +19,14 @@ pypi = "^2.1"
 isort = "^5.10.1"
 mypy = "^0.991"
 pytest = "^7.2.0"
+pylint-pytest = "^1.1.2"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.plugins.opentelemetry_traces_exporter]
+file = "redhat_opentelemetry_contrib.file_exporters:FileSpanExporter"
+
+[tool.poetry.plugins.opentelemetry_metrics_exporter]
+file = "redhat_opentelemetry_contrib.file_exporters:FileMetricExporter"

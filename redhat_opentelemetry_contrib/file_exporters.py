@@ -89,7 +89,7 @@ class FileMetricExporter(ConsoleMetricExporter):
             EnvVars.OTEL_FILE_METRIC_EXPORTER_NAME, "otel_metrics.log"
         ),
     ) -> None:
-        super().__init__(out=open(file_path, "a", encoding="utl-8"))
+        super().__init__(out=open(file_path, "a", encoding="utf-8"))
         self.file_path = file_path
 
     def __del__(self):
