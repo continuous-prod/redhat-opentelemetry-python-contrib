@@ -30,6 +30,8 @@ def console_exporters_env(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setenv("OTEL_TRACES_EXPORTER", "console")
     monkeypatch.setenv("OTEL_METRICS_EXPORTER", "console")
     monkeypatch.setenv("OTEL_LOGS_EXPORTER", "console")
+    # Disable the script instrumentor to it does not affect generated spans
+    monkeypatch.setenv("OTEL_PYTHON_DISABLED_INSTRUMENTATIONS", "__main__")
 
 
 @pytest.fixture

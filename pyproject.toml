@@ -30,3 +30,9 @@ file = "redhat_opentelemetry_contrib.file_exporters:FileSpanExporter"
 
 [tool.poetry.plugins.opentelemetry_metrics_exporter]
 file = "redhat_opentelemetry_contrib.file_exporters:FileMetricExporter"
+
+[tool.poetry.plugins.opentelemetry_instrumentor]
+__main__ = "redhat_opentelemetry_contrib.script_instrumentor:ScriptInstrumentor"
+
+[tool.poetry.extras]
+instruments = []
