@@ -51,7 +51,7 @@ plugin][ans] and the [Jenkins OpenTelemetry plugin][jnk].
 
 The script instrumentor can cause traces to look a bit strange for things that
 are not meant to be stand-alone Python scripts such as Django and Flask server
-processes. It can be disabled bu setting the
+processes. It can be disabled by setting the
 `OTEL_PYTHON_DISABLED_INSTRUMENTATIONS` environment variable:
 ```
 export OTEL_PYTHON_DISABLED_INSTRUMENTATIONS="__main__"

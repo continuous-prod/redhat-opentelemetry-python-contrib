@@ -4,6 +4,7 @@ version = "0.0.0"
 description = "OpenTelementry Python extensions written at Red Hat"
 authors = ["Barak Korren <bkorren@redhat.com>"]
 license = "Apache-2.0"
+readme = "README.md"
 
 [tool.poetry-dynamic-versioning]
 enable = true
