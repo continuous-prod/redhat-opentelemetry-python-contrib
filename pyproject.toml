@@ -1,9 +1,13 @@
 [tool.poetry]
 name = "redhat_opentelemetry_contrib"
-version = "0.1.0"
+version = "0.0.0"
 description = "OpenTelementry Python extensions written at Red Hat"
 authors = ["Barak Korren <bkorren@redhat.com>"]
 license = "Apache-2.0"
+
+[tool.poetry-dynamic-versioning]
+enable = true
+metadata = false
 
 [tool.poetry.dependencies]
 python = "^3.9.0"
@@ -22,8 +26,11 @@ pytest = "^7.2.0"
 pylint-pytest = "^1.1.2"
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning"]
+build-backend = "poetry_dynamic_versioning.backend"
+
+[tool.poetry.extras]
+instruments = []
 
 [tool.poetry.plugins.opentelemetry_traces_exporter]
 file = "redhat_opentelemetry_contrib.file_exporters:FileSpanExporter"
@@ -33,6 +40,3 @@ file = "redhat_opentelemetry_contrib.file_exporters:FileMetricExporter"
 
 [tool.poetry.plugins.opentelemetry_instrumentor]
 __main__ = "redhat_opentelemetry_contrib.script_instrumentor:ScriptInstrumentor"
-
-[tool.poetry.extras]
-instruments = []

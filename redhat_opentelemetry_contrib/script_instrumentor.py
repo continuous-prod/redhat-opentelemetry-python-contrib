@@ -35,7 +35,7 @@ from opentelemetry.propagators.textmap import CarrierValT, Getter, Setter
 from opentelemetry.trace.span import Span
 from opentelemetry.trace.status import StatusCode
 
-__version__ = "0.0.14"
+from .__version__ import __version__
 
 
 class UndoingEnvironGetterSetter(Setter[os._Environ], Getter[os._Environ]):
