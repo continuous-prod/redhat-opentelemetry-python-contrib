@@ -31,8 +31,6 @@ from opentelemetry.sdk.trace.export import (
     ConsoleSpanExporter,  # type: ignore[attr-defined]
 )
 
-__version__ = "0.0.12"
-
 
 class EnvVars:
     # pylint: disable=too-few-public-methods
