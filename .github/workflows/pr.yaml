@@ -9,27 +9,16 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 3
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - name: Install poetry, pre-commit and the dynamic-versioning plugin
+        run: |
+          pipx install poetry
+          poetry self add "poetry-dynamic-versioning[plugin]"
+          pipx install pre-commit
+      - uses: actions/setup-python@v4
         with:
           python-version: "3.9"
-      - name: Install poetry and pre-commit
-        run: pip install --user poetry pre-commit
-      - name: cache poetry virtualenv
-        uses: actions/cache@v1
-        id: cache
-        with:
-          path: ~/.virtualenvs
-          key: poetry-${{ hashfiles('**/poetry.lock') }}
-          restore-keys: |
-            poetry-${{ hashfiles('**/poetry.lock') }}
-      - name: set poetry config
-        run: |
-          poetry config virtualenvs.in-project false
-          poetry config virtualenvs.path ~/.virtualenvs
-      - name: Setup environment
-        run: poetry install
-        if: steps.cache.outputs.cache-hit != 'true'
+          cache: 'poetry'
+      - run: poetry install
       - name: Run pre-commit tests
         run: pre-commit run --from-ref HEAD^ --to-ref HEAD
   pytest:
@@ -38,26 +27,17 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      - name: Set up Python
-        uses: actions/setup-python@v4
+        with:
+          fetch-depth: 3
+      - name: Install poetry, pre-commit and the dynamic-versioning plugin
+        run: |
+          pipx install poetry
+          poetry self add "poetry-dynamic-versioning[plugin]"
+          pipx install pre-commit
+      - uses: actions/setup-python@v4
         with:
           python-version: "3.9"
-      - name: Install poetry
-        run: pip install --user poetry
-      - name: cache poetry virtualenv
-        uses: actions/cache@v1
-        id: cache
-        with:
-          path: ~/.virtualenvs
-          key: poetry-${{ hashfiles('**/poetry.lock') }}
-          restore-keys: |
-            poetry-${{ hashfiles('**/poetry.lock') }}
-      - name: set poetry config
-        run: |
-          poetry config virtualenvs.in-project false
-          poetry config virtualenvs.path ~/.virtualenvs
-      - name: Setup environment
-        run: poetry install
-        if: steps.cache.outputs.cache-hit != 'true'
+          cache: 'poetry'
+      - run: poetry install
       - name: Run PyTest
         run: poetry run pytest -v
